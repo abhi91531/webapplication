@@ -1,0 +1,220 @@
+<project name="Studymanagement_WebApplication" default="usage" basedir="." xmlns:ac="antlib:net.sf.antcontrib">
+	
+	
+	<!--
+		Usage:
+		======
+		Provide the usage target, which is the default.
+		-->
+
+		  <target name="usage">
+
+		    <echo>Usage:</echo>
+		    <echo> </echo>
+		    <echo> ant war | build | all | test | buildandreview</echo>
+
+		  </target>
+
+	<target name="init">
+
+		    <!-- START OF DONOT MODIFY SECTION -->
+
+		    <condition property="property.present">
+		      <or>
+		        <available file="build.properties"/>
+		        <istrue value="${scmbuild}"/>
+		      </or>
+		    </condition>
+
+		    <fail message="Build Failed build.properties does not exist"
+		          unless="property.present"/>
+
+		    <property environment="env"/>
+
+		    <property file="override.properties"/>
+
+		    <property file="build.properties"/>
+			<echo>${lib.dir}</echo>
+			<echo>${env.JDK_HOME}</echo>
+			<echo>${env.ANT_HOME}</echo>
+
+		    <!-- END OF DONOT MODIFY SECTION -->
+
+		    <!-- Additional properties are defined below -->
+
+		    <property name="jar.dir"
+		              value="${build.dir}/jars"/>
+
+		    <property name="class.dir"
+		              value="${build.dir}/classes"/>
+
+		    <property name="doc.dir"
+		              value="${build.dir}/docs"/>
+
+		 
+		    <!-- No custom MANIFEST for wars -->
+		    <!--
+			<property name="manifest"
+		              value="${srcdeployment.dir}/META-INF/MANIFEST.MF"/>
+		    -->
+
+			<property name="webxml"
+		              value="${webContent.dir}/WEB-INF/web.xml"/>
+
+		    <!-- Define references which will be used later. -->
+
+		    <fileset id="lib" dir="${lib.dir}">
+		      <include name="**/*.jar"/>
+		    </fileset>
+		
+		
+
+		    <fileset id="syslib" dir="${syslib.dir}">
+		      <include name="**/*.jar"/>
+		    </fileset>
+
+		    <path id="classpath">
+		      <fileset refid="lib"/>
+		    	
+		      <fileset refid="syslib"/>
+		      <fileset dir="${ant.dir}">
+		        <include name="*.jar"/>
+		      </fileset>
+		    </path>
+
+		    
+
+		 
+			<!--
+			Currently, the Test classes are not compiling.
+			Hence following task 'filterset' is commented.
+			-->
+			<!--
+			<filterset id="keyword" begintoken="%$%" endtoken="$">
+		      <filtersfile file="${testproperty.dir}/system.properties"/>
+		      <filtersfile file="${testproperty.dir}/${app.name}.properties"/>
+		    </filterset>
+		    -->
+		    <taskdef resource="net/sf/antcontrib/antcontrib.properties"></taskdef>
+
+		  </target>
+		
+		
+		<!--
+		Cleaning:
+		=========
+		The "clean" target is used to remove old files and directories
+		created by the previous build.
+		-->
+
+		  <target name="clean" depends="init">
+
+			<delete dir="${class.dir}"/>
+		    <delete dir="${jar.dir}"/>
+		  	 <delete dir="${doc.dir}"/>
+		  	<delete dir="${wartmp.dir}"/>
+		  	<delete dir="${wars.dir}"/>
+		  	
+		  	
+		   
+		   
+		  </target>
+	
+	
+	<!--
+		Preparation:
+		============
+		The Preparation target is used for setting the stage pre-build.
+		-->
+
+		  <target name="preparedir" depends="clean,init">
+
+		    <mkdir dir="${class.dir}"/>
+		    <mkdir dir="${jar.dir}"/>
+		  	<mkdir dir="${doc.dir}"/>
+		  	<mkdir dir="${wartmp.dir}" />
+		  	<mkdir dir="$${wars.dir}" />
+		  	</target>
+	
+	 <target name="compile" depends="preparedir">
+		    
+			<!--<antcall target="build.smartalloc"/> -->
+			
+		    <echo> **************${javac.cmd} ************** </echo>
+		   	
+		   	<javac verbose="off" debug="on"
+				   srcdir="${src.dir}"
+				   destdir="${class.dir}"
+				   fork="yes"
+				   executable="${javac.cmd}"
+				   includeAntRuntime="no"
+				   includeJavaRuntime="no" >
+		      <classpath refid="classpath"/>
+		    </javac>
+		 	 </target>
+
+	
+	 <!-- since packages are different , creating each and every task for every xsd file. -->
+		
+	  <target name="m360xsd">		
+		<echo> **************${m360.xsd} ************** </echo>	   	
+		<!-- xjc : take xsd and generate source files in the respective mentioned directory. -->		
+		<exec executable="C:/Program Files/Java/jdk1.7.0_45/bin/xjc">
+		   <arg value="-xmlschema"/>
+		   <arg value="D:/Test/src/main/xsd/m360.xsd"/>	
+		   <arg value="-p"/>
+		   <arg value="com.matrix360.schema"/>
+		   <arg value="-d"/>
+	       <arg value="../src/main"/>
+		</exec>		  
+	  </target>
+	
+	<!--
+		War-Targets:
+		============
+		Create pre-keyword replaced war, put into jars directory
+		-->
+		 
+		  <target name="war" depends="init,m360xsd,compile">
+		  	
+		  	<copy todir="${wartmp.dir}">
+		  	      <fileset dir="${webContent.dir}"/>
+		  	    </copy>
+		  	   	
+		  	<copy todir="${wartmp.dir}/WEB-INF/classes">
+		  	      <fileset dir="${class.dir}"/>
+		  	</copy>
+		  	
+			
+		  	<copy todir="${wartmp.dir}/WEB-INF/lib">
+		  	  	      <fileset dir="${lib.dir}"/>
+		  	 </copy>
+		  	  
+		  	<!--<copy todir="${wartmp.dir}/WEB-INF/lib">
+		  	  	      <fileset dir="${syslib.dir}"/>
+		  	  	</copy>-->
+
+		      <war warfile="${jar.dir}/${app.name}.war" index="true" needxmlfile="fasle" >
+	     	
+		      		<classes dir="${class.dir}" />
+		      	    <lib dir="${lib.dir}" prefix="WEB-INF/lib">
+		      	        <exclude name="servlet-api.jar"/>
+		      		  	<exclude name="encrypted-pw-ds-1.7.jar"/>
+		      	      </lib>
+		      		<fileset dir="${webContent.dir}">
+		      				<include name="**/*.*" />
+		      		</fileset>
+		      		
+			  
+		    </war>
+		    <copy file="${jar.dir}/${app.name}.war"
+		                tofile="${wars.dir}/${app.name}.war"
+		                overwrite="true">
+		    </copy>
+
+		  </target>
+		 
+		
+	
+	
+	</project>

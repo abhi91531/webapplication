@@ -1,0 +1,988 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.megapath.com/m360"
+	elementFormDefault="qualified" xmlns:tns="http://www.megapath.com/m360" xmlns:sylantro="http://www.megapath.com/sylantro/">
+
+	<import namespace="http://www.megapath.com/sylantro" schemaLocation="sylantro.xsd" />
+
+	<complexType name="ServiceDetails">
+		<sequence>
+			<element name="line" type="tns:Line" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="AccessDetails">
+		<sequence>
+			<element name="productName" type="string"></element>
+			<element name="provider" type="string"></element>
+			<element name="providerStatusCode" type="string"></element>
+			<element name="providerCircuitId" type="string"></element>
+			<element name="providerOrderId" type="string"></element>
+			<element name="provisioningNode" type="string"></element>
+			<element name="provisioningNodeRouter" type="string"></element>
+			<element name="qosProfile" type="string"></element>
+			<element name="techType" type="string"></element>
+			<element name="productSku" type="string"></element>
+			<element name="rsn" type="long"></element>
+			<element name="ipAddress" type="tns:IpAddress" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="ipDetails" type="tns:IpDetails" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="vpi" type="string"></element>
+			<element name="vci" type="string"></element>
+			<element name="vrf" type="string"></element>
+			<element name="circuitLogin" type="string"></element>
+			<element name="circuitPassword" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OrderDetails">
+		<sequence>
+			<element name="orderingSystem" type="string"></element>
+			<element name="order" type="tns:Order" maxOccurs="unbounded" minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Ticket">
+		<sequence>
+			<element name="ticketCode" type="string"></element>
+			<element name="category" type="string"></element>
+			<element name="subcategory" type="string"></element>
+			<element name="dateOpened" type="string"></element>
+			<element name="dateClosed" type="string"></element>
+			<element name="lastNotesDate" type="string"></element>
+			<element name="attentionDate" type="string"></element>
+			<element name="description" type="string"></element>
+			<element name="status" type="string"></element>
+			<element name="priority" type="string"></element>
+			<element name="refType" type="string"></element>
+			<element name="refId" type="long"></element>
+			<element name="domain" type="string"></element>
+			<element name="resolution" type="string"></element>
+			<element name="notesCount" type="long"></element>
+			<element name="siteAccountNumber" type="long"></element>
+			<element name="siteAddress" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Order">
+		<sequence>
+			<element name="orderNumber" type="long"></element>
+			<element name="orderSystemUrl" type="string"></element>
+			<element name="monthlyCharge" type="string"></element>
+			<element name="billcode" type="string"></element>
+			<element name="contractTerm" type="long"></element>
+			<element name="techType" type="string"></element>
+			<element name="accountNumber" type="long" />
+			<element name="companyName" type="string"></element>
+			<element name="siteAddress" type="string"></element>
+			<element name="siteExcelStreetAddress" type="string"></element>
+			<element name="siteUnit" type="string"></element>
+			<element name="siteCity" type="string"></element>
+			<element name="siteState" type="string"></element>
+			<element name="siteZip" type="string"></element>
+			<element name="siteCountry" type="string"></element>
+			<element name="refOrderType" type="string" />
+			<element name="status" type="string"></element>
+			<element name="cancelReason" type="string"></element>
+			<element name="dateCreated" type="string"></element>
+			<element name="dateModified" type="string"></element>
+			<element name="type" type="string"></element>
+			<element name="affiliate" type="string"></element>
+			<element name="affiliateID" type="long"></element>
+			<element name="onNetDispatch" type="tns:OnNetDispatch" maxOccurs="unbounded" minOccurs="0" />
+			<element name="orderLineItem" type="tns:OrderLineItem" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="orderMilestone" type="tns:OrderMilestone" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="orderNote" type="tns:OrderNote" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="salesRepFirstName" type="string"></element>
+			<element name="salesRepLastName" type="string"></element>
+			<element name="salesRepCompanyName" type="string"></element>
+			<element name="salesRepEmail" type="string"></element>
+			<element name="salesRepPhoneNumber" type="string"></element>
+			<element name="salesRepPhoneExtn" type="string"></element>
+			<element name="salesRepDetails" type="boolean"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Invoice">
+		<sequence>
+			<element name="invoiceNumber" type="long"></element>
+			<element name="invoiceDate" type="string"></element>
+			<element name="dueDate" type="string"></element>
+			<element name="previousBalance" type="string"></element>
+			<element name="currentCharges" type="string"></element>
+			<element name="totalDue" type="string"></element>
+			<element name="adjustment" type="string"></element>
+			<element name="lateFee" type="string"></element>
+			<element name="payment" type="string"></element>
+			<element name="pdfUrl" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="BillingDetails">
+		<sequence>
+			<element name="invoice" type="tns:Invoice" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="payment" type="tns:Transaction" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="adjustment" type="tns:Transaction" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="productPricing" type="tns:ProductPricing" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="legacySystem" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Transaction">
+		<sequence>
+			<element name="txnNumber" type="string"></element>
+			<element name="txnDate" type="string"></element>
+			<element name="txnAmount" type="string"></element>
+			<element name="txnType" type="string"></element>
+			<element name="txnStatus" type="string"></element>
+			<element name="docNumber" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OrderLineItem">
+		<sequence>
+			<element name="orderLineItemNumber" type="long"></element>
+			<element name="productName" type="string"></element>
+			<element name="productType" type="string"></element>
+			<element name="mrc" type="string"></element>
+			<element name="nrc" type="string"></element>
+			<element name="quantity" type="long"></element>
+			<element name="bundleInstanceId" type="long"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="VoipTelephoneNumber">
+		<sequence>
+			<element name="phoneNumber" type="string"></element>
+			<element name="firstName" type="string"></element>
+			<element name="lastName" type="string"></element>
+			<element name="serviceType" type="string"></element>
+			<element name="rsn" type="long"></element>
+			<element name="productName" type="string"></element>
+			<element name="terminatingDevice" type="string"></element>
+			<element name="serviceStatus" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Service">
+		<sequence>
+			<element name="rsn" type="long"></element>
+			<element name="serviceType" type="string"></element>
+			<element name="serviceCategory">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="Access" />
+						<enumeration value="Voice" />
+						<enumeration value="Security" />
+						<enumeration value="Cloud" />
+						<enumeration value="Other" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="productName" type="string"></element>
+			<element name="serviceStatus" type="string"></element>
+			<element name="remarks" type="string"></element>
+			<element name="quantity" type="long"></element>
+			<element name="serviceProperty" type="tns:ServiceProperty" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="coreService" type="boolean"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ServiceProperty">
+		<sequence>
+			<element name="name" type="string"></element>
+			<element name="value" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Equipment">
+		<sequence>
+			<element name="esn" type="long"></element>
+			<element name="equipmentName" type="string"></element>
+			<element name="provider" type="string"></element>
+			<element name="username" type="string"></element>
+			<element name="password" type="string"></element>
+			<element name="shippingCompany" type="string"></element>
+			<element name="trackingUrl" type="string"></element>
+			<element name="trackingNumber" type="string"></element>
+			<element name="purpose" type="string"></element>
+			<element name="serviceStatus" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Dispatch">
+		<sequence>
+			<element name="rsn" type="long"></element>
+			<element name="productName" type="string"></element>
+			<element name="vendor" type="string"></element>
+			<element name="dispatchTime" type="string"></element>
+			<element name="orderNumber" type="string"></element>
+			<element name="orderDate" type="string"></element>
+			<element name="remarks" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="AccountSearchResult">
+		<sequence>
+			<element name="accountNumber" type="long"></element>
+			<element name="accountHierarchy" type="string"></element>
+			<element name="previousAccountNumber" type="string"></element>
+			<element name="companyName" type="string"></element>
+			<element name="organizationName" type="string"></element>
+			<element name="contactName" type="string"></element>
+			<element name="serviceAddress" type="string"></element>
+			<element name="hasAccess" type="boolean"></element>
+			<element name="hasVoip" type="boolean"></element>
+			<element name="hasMss" type="boolean"></element>
+			<element name="hasHostedIt" type="boolean"></element>
+			<element name="accountSegment" type="string"></element>
+			<element name="serviceStatus" type="string"></element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="ProductPricing">
+		<sequence>
+			<element name="productName" type="string"></element>
+			<element name="quantity" type="long"></element>
+			<element name="mrc" type="string"></element>
+			<element name="nrc" type="string"></element>
+			<element name="contractTerm" type="long"></element>
+			<element name="contractStartDate" type="string"></element>
+			<element name="contractEndDate" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="CustomerOverview">
+		<sequence>
+			<element name="accountDetails" type="tns:AccountDetails"></element>
+			<element name="billingOverview" type="tns:BillingOverview">
+			</element>
+			<element name="serviceSummary" type="tns:ServiceSummary" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="site" type="tns:ChildAccount" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="AccountDetails">
+		<sequence>
+			<element name="accountNumber" type="long"></element>
+			<element name="billToAccountNumber" type="long"></element>
+			<element name="orgAccountNumber" type="long"></element>
+			<element name="costCenterAccountNumber" type="long"></element>
+			<element name="extranetOrgId" type="long"></element>
+			<element name="previousAccountNumber" type="string"></element>
+			<element name="companyName" type="string"></element>
+			<element name="organizationName" type="string"></element>
+			<element name="accountStatus" type="string"></element>
+			<element name="accountSegment" type="string"></element>
+			<element name="accountHierarchy" type="string"></element>
+			<element name="customerContact" type="tns:CustomerContact" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="orderingSystem" type="string"></element>
+			<element name="legacySystem" type="string"></element>
+			<element name="legacyAccountNumber" type="long"></element>
+			<element name="accountNotes" type="string"></element>
+			<element name="orgAccountNotes" type="string"></element>
+			<element name="gbRefId" type="string"></element>
+			<element name="primaryAccountManager" type="string"></element>
+			<element name="costCenterCompanyName" type="string"></element>
+			<element name="businessUnitName" type="string"></element>
+			<element name="accountOwner" type="string"></element>
+			<element name="custownerdisp" type="boolean"></element>
+			<element name="customerOwner" type="string"></element>
+			<element name="groupId" type="string" />
+			<element name="accountTenure" type="string"></element>
+			<element name="callCount7D" type="string"></element>
+			<element name="callCount30D" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="BillingOverview">
+		<sequence>
+			<element name="lastInvoiceAmount" type="string"></element>
+			<element name="lastInvoiceDate" type="string"></element>
+			<element name="paymentSinceLastInvoice" type="string"></element>
+			<element name="lastPaymentDate" type="string"></element>
+			<element name="currentDueOutstanding" type="string"></element>
+			<element name="dueDate" type="string"></element>
+			<element name="pastDueAmount" type="string"></element>
+			<element name="dueAmount" type="string"></element>
+			<element name="accountPastDue" type="boolean"></element>
+			<element name="legacySystem" type="string"></element>
+			<element name="billToAccountNumber" type="long"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ServiceSummary">
+		<sequence>
+			<element name="service" type="tns:Service" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="serviceAddress" type="string"></element>
+			<element name="siteId" type="long"></element>
+			<element name="productBundleInstanceId" type="long" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="CustomerContact">
+		<sequence>
+			<element name="contactType" type="string"></element>
+			<element name="contactName" type="string"></element>
+			<element name="primaryPhone" type="string"></element>
+			<element name="altPhone" type="string"></element>
+			<element name="email" type="string"></element>
+			<element name="fax" type="string"></element>
+			<element name="contactAddress" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ChildAccount">
+		<sequence>
+			<element name="accountNumber" type="long"></element>
+			<element name="accountStatus" type="string"></element>
+			<element name="accountHierarchy" type="string"></element>
+			<element name="serviceAddress" type="string"></element>
+			<element name="serviceStatus" type="string"></element>
+			<element name="contactName" type="string"></element>
+			<element name="contactPhone" type="string"></element>
+			<element name="companyName" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Notes">
+		<sequence>
+			<element name="ticketCode" type="string"></element>
+			<element name="addedBy" type="string"></element>
+			<element name="dateAdded" type="string"></element>
+			<element name="medium" type="string"></element>
+			<element name="contactReason" type="string"></element>
+			<element name="notes" type="string"></element>
+		</sequence>
+	</complexType>
+	<complexType name="CustomerSearchForm">
+		<sequence>
+			<element name="accountNumber" type="string"></element>
+			<element name="affiliateId" type="string"></element>
+			<element name="client" type="string"></element>
+			<element name="companyName" type="string"></element>
+			<element name="serviceAddress" type="string"></element>
+			<element name="phoneNumber" type="string"></element>
+			<element name="contactName" type="string"></element>
+			<element name="ticketNumber" type="string"></element>
+			<element name="orderNumber" type="string"></element>
+			<element name="csaCircuitNumber" type="string"></element>
+			<element name="csaOrderNumber" type="string"></element>
+			<element name="csaTicketNumber" type="string"></element>
+			<element name="lsn" type="string"></element>
+			<element name="billcode" type="string"></element>
+			<element name="voipPhoneNumber" type="string"></element>
+			<element name="invoiceNumber" type="string"></element>
+			<element name="wildcardPrefix" type="boolean"></element>
+			<element name="filterByActiveService" type="boolean"></element>
+			<element name="filterByOrgAccount" type="boolean"></element>
+			<element name="filterByPendingInstall" type="boolean"></element>
+			<element name="mosesTicketNumber" type="string"></element>
+			<element name="mosesBillAccountNumber" type="string"></element>
+			<element name="excelMode" type="boolean"></element>
+			<element name="gbRefId" type="string"></element>
+			<element name="emailAddress" type="string"></element>
+			<element name="ipAddress" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="IpDetails">
+		<sequence>
+			<element name="ipAddress" type="string"></element>
+			<element name="cidr" type="int"></element>
+			<element name="subnetMask" type="string"></element>
+			<element name="subnetAddress" type="string"></element>
+			<element name="firstUsableIpAddress" type="string"></element>
+			<element name="lastUsableIpAddress" type="string"></element>
+			<element name="ipPoolName" type="string"></element>
+			<element name="ipPoolType" type="string"></element>
+			<element name="ipType" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Line">
+		<sequence>
+			<element name="lsn" type="long"></element>
+			<element name="serviceAddress" type="string"></element>
+			<element name="lineType" type="string"></element>
+			<element name="lineStatus" type="string"></element>
+			<element name="billcode" type="string"></element>
+			<element name="bondingInfo" type="string"></element>
+			<element name="dateConnected" type="string"></element>
+			<element name="dateDisconnected" type="string"></element>
+			<element name="accessDetails" type="tns:AccessDetails"></element>
+			<element name="service" type="tns:Service" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="otherService" type="tns:Service" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="equipment" type="tns:Equipment" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="voipTelephoneNumber" type="tns:VoipTelephoneNumber" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="dispatch" type="tns:Dispatch" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="associatedLSN" type="long"></element>
+			<element name="associatedType" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="IpAddress">
+		<sequence>
+			<element name="ipAddress" type="string"></element>
+			<element name="subnetMask" type="string"></element>
+			<element name="routingProtocol" type="string"></element>
+			<element name="status" type="string"></element>
+			<element name="type" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="VoipDetails">
+		<sequence>
+			<element name="voipServiceHeader" type="tns:VoipServiceHeader" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="voipService" type="tns:VoipService" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="lsn" type="string"></element>
+			<element name="mosesCustomerId" type="long"></element>
+			<element name="voipProductType" type="string"></element>
+			<element name="siteName" type="string"></element>
+			<element name="groupId" type="string"></element>
+			<element name="groupName" type="string"></element>
+			<element name="e911SubscriberName" type="string"></element>
+			<element name="broadsoftCustomerUserId" type="string">
+			</element>
+			<element name="broadSoftCustomerPassword" type="string">
+			</element>
+			<element name="boradSoftMegaPathUserId" type="string">
+			</element>
+			<element name="boradSoftMegaPathPassword" type="string">
+			</element>
+			<element name="broadSoftGroupId" type="string"></element>
+			<element name="voipEnterpriseId" type="string"></element>
+			<element name="defaultPhonePassword" type="string">
+			</element>
+			<element name="timeZone" type="string"></element>
+			<element name="groupContactName" type="string"></element>
+			<element name="groupContactPhone" type="string"></element>
+			<element name="groupContactEmail" type="string"></element>
+			<element name="mainCpeName" type="string"></element>
+			<element name="mainCpeType" type="string"></element>
+			<element name="bwVersion" type="string"></element>
+			<element name="wanIpAddress" type="string"></element>
+			<element name="httpUserName" type="string"></element>
+			<element name="httpPassword" type="string"></element>
+			<element name="sshUserName" type="string"></element>
+			<element name="sshPassword" type="string"></element>
+			<element name="mpAdminLogin" type="string"></element>
+			<element name="mpAdminPassword" type="string"></element>
+			<element name="voicePlatform" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="VoipServiceHeader">
+		<sequence>
+			<element name="serviceName" type="string"></element>
+			<element name="serviceType" type="string"></element>
+			<element name="quantity" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="VoipService">
+		<sequence>
+			<element name="serviceName" type="string"></element>
+			<element name="userName" type="string"></element>
+			<element name="phoneNumberId" type="string"></element>
+			<element name="phoneNumber" type="string"></element>
+			<element name="extension" type="string"></element>
+			<element name="initialVoicePortalPassword" type="string">
+			</element>
+			<element name="initialWebAccessPassword" type="string">
+			</element>
+			<element name="sipUserName" type="string"></element>
+			<element name="sipPassword" type="string"></element>
+			<element name="equipmentName" type="string"></element>
+			<element name="macAddress" type="string"></element>
+			<element name="trunkGroupName" type="string"></element>
+			<element name="groupId" type="string"></element>
+			<element name="status" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="TicketAttachment">
+		<sequence>
+			<element name="uploadedBy" type="string"></element>
+			<element name="dateUploaded" type="string"></element>
+			<element name="fileName" type="string"></element>
+			<element name="filePath" type="string"></element>
+			<element name="ticketCode" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<element name="m360Response">
+		<complexType>
+			<choice>
+				<element name="accountDetails" type="tns:AccountDetails" />
+				<element name="notificationDetailsResponse" type="tns:NotificationDetailsResponse">
+				</element>
+				<element name="authenticationApiResponse" type="tns:AuthenticationApiResponse">
+				</element>
+				<element name="userVerificationApiResponse" type="tns:UserVerificationApiResponse">
+				</element>
+				<element name="serviceDetails" type="tns:ServiceDetails">
+				</element>
+				<element name="serviceSummary" type="tns:ServiceSummary" maxOccurs="unbounded" minOccurs="0"></element>
+				<element name="accountSearchResult" type="tns:AccountSearchResult" maxOccurs="unbounded" minOccurs="0"></element>
+				<element name="orderDetails" type="tns:OrderDetails"></element>
+				<element name="productBundle" type="tns:ProductBundle" maxOccurs="unbounded" minOccurs="0" />
+				<element name="childAccount" type="tns:ChildAccount" maxOccurs="unbounded" minOccurs="0" />
+				<element name="BillingDetails" type="tns:BillingDetails" maxOccurs="unbounded" minOccurs="0" />
+				<element name="contractDetails" type="tns:ContractDetails" maxOccurs="unbounded" minOccurs="0" />
+				<element name="onNetCircuit" type="tns:OnNetCircuit" maxOccurs="unbounded" minOccurs="0" />
+				<element name="ticketDetails" type="tns:Ticket" maxOccurs="unbounded" minOccurs="0">
+				</element>
+				<element name="errorMessage" type="string" />
+				<element name="vpnDetails" type="tns:OnNetVpnDetails"></element>
+				<element name="evplCspDetails" type="tns:EvplCspDetails" maxOccurs="unbounded" minOccurs="0"></element>
+				<element name="nidLanPortDetails" type="tns:NidLanPortDetails" maxOccurs="unbounded" minOccurs="0"></element>
+				<element name="evcDetails" type="tns:EvcDetails" maxOccurs="unbounded" minOccurs="0"></element>
+				
+				<element name="partnerServiceId" type="int"></element>
+				
+			</choice>
+		</complexType>
+	</element>
+
+	<complexType name="NotificationDetailsResponse">
+		<sequence>
+			<element name="incidentId" type="long"></element>
+			<element name="notificationPurpose" type="string"></element>
+			<element name="notificationDetails" type="tns:NotificationDetails" maxOccurs="unbounded" minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="NotificationDetails">
+		<sequence>
+			<element name="accountNumber" type="long"></element>
+			<element name="email" type="string"></element>
+			<element name="companyName" type="string"></element>
+			<element name="firstName" type="string"></element>
+			<element name="lastName" type="string"></element>
+			<element name="siteAddress" type="string"></element>
+			<element name="hasVoip" type="boolean"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="AuthenticationApiResponse">
+		<sequence>
+			<element name="userId" type="string"></element>
+			<element name="authenticated" type="boolean"></element>
+			<element name="roleId" type="string" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="errorMsg" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="UserVerificationApiResponse">
+		<sequence>
+			<element name="validUser" type="string"></element>
+			<element name="userId" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OnNetCircuit">
+		<sequence>
+			<element name="circuitNumber" type="string"></element>
+			<element name="order" type="tns:OnNetOrder" minOccurs="0" maxOccurs="unbounded">
+			</element>
+			<element name="ticket" type="tns:OnNetTicket" minOccurs="0" maxOccurs="unbounded">
+			</element>
+			<element name="service" type="tns:OnNetService" minOccurs="0" maxOccurs="1">
+			</element>
+			<element name="companyName" type="string"></element>
+			<element name="wholesalePartner" type="string"></element>
+			<element name="enterpriseName" type="string"></element>
+			<element name="siteAddress" type="string"></element>
+			<element name="dispatch" type="tns:OnNetDispatch" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="status" type="string"></element>
+			<element name="dateConnected" type="string"></element>
+			<element name="dateDisconnected" type="string"></element>
+			<element name="loop" type="tns:OnNetLoop" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="bondingInfo" type="string"></element>
+			<element name="parentCircuitNumber" type="string"></element>
+			<element name="vpnDetails" type="tns:OnNetVpnDetails"></element>
+			<element name="evcDetails" type="tns:EvcDetails" maxOccurs="unbounded" minOccurs="0"></element>
+			<element name="siteName" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OnNetOrder">
+		<sequence>
+			<element name="orderNumber" type="string"></element>
+			<element name="orderType" type="string"></element>
+			<element name="orderAction" type="string"></element>
+			<element name="orderStatus" type="string"></element>
+			<element name="dateReceived" type="string"></element>
+			<element name="dateCompleted" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="OnNetVpnDetails">
+		<sequence>
+			<element name="lanRoutingProtocol" type="string"></element>
+			<element name="wanRoutingProtocol" type="string"></element>
+			<element name="lanIP" type="string"></element>
+			<element name="lanSubnet" type="string"></element>
+			<element name="wanIP" type="string"></element>
+			<element name="wanSubnet" type="string"></element>
+			<element name="vpnGroupId" type="int"></element>
+			<element name="vpnGroupName" type="string"></element>
+			<element name="dhcpPoolSize" type="string"></element>
+			<element name="dhcpStartingIpAddress" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="EvplCspDetails">
+		<sequence>
+			<element name="circuitId" type="string"></element>
+			<element name="circuitName" type="string"></element>
+			<element name="partnerServiceId" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="NidLanPortDetails">
+		<sequence>
+			<element name="cpeModelId" type="string"></element>
+			<element name="cpeModelPortId" type="string"></element>
+			<element name="cpePortName" type="string"></element>
+			<element name="interfaceType" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="EvcDetails">
+		<sequence>
+			<element name="evcId" type="int"></element>
+			<element name="partnerServiceTypeId" type="int"></element>
+			<element name="evcBandwidth" type="float"></element>
+			<element name="cosValue" type="int"></element>
+			<element name="cosName" type="string"></element>
+			<element name="nidLanPort" type="string"></element>
+			<element name="cloudServiceProvider" type="int"></element>
+			<element name="cloudServiceProviderName" type="string"></element>
+			<element name="vlanIdNumber" type="int"></element>
+			<element name="ceVlanPreserve" type="boolean"></element>
+			<element name="ceVlanValidate" type="boolean"></element>
+			<element name="ceVlanValue" type="string"></element>
+			<element name="enableDynamicRouting" type="boolean"></element>
+			<element name="numOfIp" type="int"></element>
+			<element name="vpn" type="int"></element>
+			<element name="vpnName" type="string"></element>
+			<element name="selectedVpn" type="string"></element>
+			<element name="routingProtocol" type="string"></element>
+			<element name="lanUserRouterIp" type="string"></element>
+			<element name="lanSubnetMask" type="string"></element>
+			<element name="dhcp" type="boolean"></element>
+			<element name="poolSize" type="int"></element>
+			<element name="dhcpPoolIpAddress" type="string"></element>
+			<element name="cpeWan" type="boolean"></element>
+			<element name="wanUserRouterIp" type="string"></element>
+			<element name="wanSubnetMask" type="string"></element>
+			<element name="evcValue" type="int"></element>
+			<element name="partnerServiceId" type="int"></element>
+			<element name="staticIpBlocks" type="tns:StaticIpBlocks" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="StaticIpBlocks">
+		<sequence>
+			<element name="ipAddress" type="string"></element>
+			<element name="subnetMask" type="string"></element>
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="OnNetTicket">
+		<sequence>
+			<element name="ticketNumber" type="string"></element>
+			<element name="serviceAffecting" type="string"></element>
+			<element name="category" type="string"></element>
+			<element name="subcategory" type="string"></element>
+			<element name="type" type="string"></element>
+			<element name="status" type="string"></element>
+			<element name="dateOpened" type="string"></element>
+			<element name="dateClosed" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OnNetService">
+		<sequence>
+			<element name="accessService" type="tns:OnNetAccessService">
+			</element>
+			<element name="primaryCpeService" type="tns:OnNetCpeService">
+			</element>
+			<element name="secondaryCpeService" type="tns:OnNetCpeService">
+			</element>
+			<element name="ipService" type="tns:OnNetIPService"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OnNetAccessService">
+		<sequence>
+			<element name="serviceBrand" type="string"></element>
+			<element name="serviceStatus" type="string"></element>
+			<element name="provisioningStatus" type="string"></element>
+			<element name="dateConnected" type="string"></element>
+			<element name="dateDisconnected" type="string"></element>
+			<element name="qosValue" type="string"></element>
+			<element name="cosValue" type="string"></element>
+			<element name="backhaulCircuitName" type="string"></element>
+			<element name="backhaulCircuitStatus" type="string">
+			</element>
+			<element name="circuitEndPoint" type="string"></element>
+			<element name="circuitNumber" type="string"></element>
+			<element name="handoffType" type="string"></element>
+			<element name="handoffTo" type="string"></element>
+			<element name="providerName" type="string"></element>
+			<element name="providerCircuitNumber" type="string"></element>
+			<element name="providerOrderNumber" type="string"></element>
+		</sequence>
+
+	</complexType>
+
+	<complexType name="OnNetIPService">
+		<sequence>
+			<element name="numberOfIpAddresses" type="string"></element>
+			<element name="ipProvisioningProfile" type="string">
+			</element>
+			<element name="provisioningStatus" type="string"></element>
+			<element name="provisionedIpBlock" type="string"></element>
+			<element name="primaryDns" type="string"></element>
+			<element name="secondaryDns" type="string"></element>
+			<element name="pppUserName" type="string"></element>
+			<element name="pppPassword" type="string"></element>
+			<element name="pppDomainName" type="string"></element>
+			<element name="ipAddress" type="tns:IpAddress" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+
+	</complexType>
+
+	<complexType name="OnNetCpeService">
+		<sequence>
+			<element name="cpeName" type="string"></element>
+			<element name="cpePassword" type="string"></element>
+			<element name="cpeProvider" type="string"></element>
+			<element name="cpeConfigurer" type="string"></element>
+			<element name="cpeManagedByCovad" type="string"></element>
+			<element name="cpeVendorSerialNumber" type="string">
+			</element>
+			<element name="cpeEncapsulation" type="string"></element>
+			<element name="cpeNetworking" type="string"></element>
+			<element name="dhcpEnabled" type="string"></element>
+			<element name="dhcpServerIp" type="string"></element>
+			<element name="dhcpPoolStartIp" type="string"></element>
+			<element name="dhcpPoolIpCount" type="string"></element>
+			<element name="lanRouterIp" type="string"></element>
+			<element name="lansubnetMask" type="string"></element>
+			<element name="interworkingType" type="string"></element>
+			<element name="lanRoutingProtocol" type="string"></element>
+			<element name="lanTestIp" type="string"></element>
+			<element name="lanSecTestIp" type="string"></element>
+			<element name="wanRouterIp" type="string"></element>
+			<element name="wansubnetMask" type="string"></element>
+			<element name="networkNumber" type="string"></element>
+			<element name="wanRoutingProtocol" type="string"></element>
+			<element name="partnerRouterIp" type="string"></element>
+			<element name="pppUserName" type="string"></element>
+			<element name="pppPassword" type="string"></element>
+			<element name="pppDomainName" type="string"></element>
+			<element name="ipAddress" type="tns:IpAddress" maxOccurs="unbounded" minOccurs="0">
+			</element>
+			<element name="primaryCpe" type="string"></element>
+		</sequence>
+
+	</complexType>
+
+	<complexType name="OnNetDispatch">
+		<sequence>
+			<element name="onCircuitNumber" type="string"></element>
+			<element name="onOrderNumber" type="string"></element>
+			<element name="onTicketNumber" type="string"></element>
+			<element name="timeScheduled" type="string"></element>
+			<element name="timeActual" type="string"></element>
+			<element name="technicianAssigned" type="string"></element>
+			<element name="technicialActual" type="string"></element>
+			<element name="status" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OnNetLoop">
+		<sequence>
+			<element name="loopId" type="string"></element>
+			<element name="carrierCircuitId" type="string"></element>
+			<element name="fictitiousPhoneNumber" type="string">
+			</element>
+			<element name="clliCode" type="string"></element>
+			<element name="lineSplit" type="string"></element>
+			<element name="techType" type="string"></element>
+			<element name="status" type="string"></element>
+			<element name="pqDistanceFromCO" type="string"></element>
+			<element name="voiceClecAcnaCode" type="string"></element>
+			<element name="dateAccepted" type="string"></element>
+			<element name="loopServiceMethod" type="string"></element>
+			<element name="zclliCode" type="string"></element>
+			<element name="loopOrderedOn" type="string"></element>
+			<element name="serviceProvisionedOn" type="string">
+			</element>
+			<element name="ilec" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="MosesTicket">
+		<sequence>
+			<element name="ticketNumber" type="string"></element>
+			<element name="ticketClass" type="string"></element>
+			<element name="status" type="string"></element>
+			<element name="owner" type="string"></element>
+			<element name="category" type="string"></element>
+			<element name="priority" type="string"></element>
+			<element name="parentTicketNumber" type="string"></element>
+			<element name="subcategory" type="string"></element>
+			<element name="mosesCustomerId" type="string"></element>
+			<element name="dateCreated" type="string"></element>
+			<element name="dateClosed" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OrderMilestone">
+		<sequence>
+			<element name="milestoneName" type="string"></element>
+			<element name="status" type="string"></element>
+			<element name="dateCompleted" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OrderNote">
+		<sequence>
+			<element name="orderNumber" type="long"></element>
+			<element name="dateCreated" type="string"></element>
+			<element name="createdBy" type="string"></element>
+			<element name="note" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Outage">
+		<sequence>
+			<element name="outageEmailId" type="long"></element>
+			<element name="outageStartTime" type="string"></element>
+			<element name="outageEndTime" type="string"></element>
+			<element name="masterTicketNumber" type="string"></element>
+			<element name="masterTicketStatus" type="string"></element>
+			<element name="notificationTime" type="string"></element>
+			<element name="notificationType" type="string"></element>
+			<element name="notificationContent" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="OutageDetails">
+		<sequence>
+			<element name="ongoingOutage" type="boolean"></element>
+			<element name="outage" type="tns:Outage" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ProductBundle">
+		<sequence>
+			<element name="bundleInstanceId" type="string"></element>
+			<element name="bundleName" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ProductBundleMember">
+		<sequence>
+			<element name="orderId" type="string"></element>
+			<element name="billcode" type="string"></element>
+			<element name="productType" type="string"></element>
+			<element name="productName" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="Site">
+		<sequence>
+			<element name="siteAccountNumber" type="long"></element>
+			<element name="serviceAddress" type="string"></element>
+			<element name="ticket" type="tns:Ticket" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<!-- <complexType name="DownloadServiceSummaryLineItem"> <sequence> <element name="accountNumber" type="long"></element> 
+		<element name="SiteAddress" type="string"></element> <element name="orderNumber" type="long"></element> <element name="billcode" 
+		type="string"></element> <element name="contractTerm" type="long"></element> <element name="dateCreated" type="string"></element> 
+		<element name="orderLineItemNumber" type="long"></element> <element name="productName" type="string"></element> <element 
+		name="productType" type="string"></element> <element name="mrc" type="string"></element> <element name="nrc" type="string"></element> 
+		<element name="quantity" type="long"></element> <element name="bundleInstanceId" type="long"></element> </sequence> </complexType> -->
+
+	<complexType name="DownloadServiceSummaryItem">
+		<sequence>
+			<element name="accountNumber" type="long"></element>
+			<element name="siteAddress" type="string"></element>
+			<element name="clientCircuitNumber" type="string"></element>
+			<element name="serviceType" type="string"></element>
+			<element name="productName" type="string"></element>
+			<element name="quantity" type="long"></element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="ContractDetails">
+		<sequence>
+			<element name="contract" type="tns:Contract" maxOccurs="unbounded" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="Contract">
+		<sequence>
+			<element name="orgAccountNumber" type="long"></element>
+			<element name="accountNumber" type="long"></element>
+			<element name="orderNumber" type="long"></element>
+			<element name="contractAcceptedDate" type="string"></element>
+			<element name="contractStartDate" type="string"></element>
+			<element name="accptedBy" type="string"></element>
+			<element name="applicationName" type="string"></element>
+			<element name="contractTerm" type="long"></element>
+			<element name="username" type="string"></element>
+			<element name="ipAddress" type="string"></element>
+			<element name="quoteNumber" type="long"></element>
+			<element name="salesChannel" type="string"></element>
+			<element name="agentName" type="string"></element>
+			<element name="contractType" type="string"></element>
+			<element name="contractCode" type="string"></element>
+			<element name="customerName" type="string"></element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="AffiliateSearchForm">
+		<sequence>
+			<element name="affiliateName" type="string" />
+			<element name="apVendorId" type="long" />
+			<element name="affiliateId" type="long" />
+			<element name="customerId" type="long" />
+		</sequence>
+	</complexType>
+
+</schema>
